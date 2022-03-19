@@ -30,6 +30,7 @@ export default function MessageForm() {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
+          console.log(data);
         } else {
           alert(data.message);
         }

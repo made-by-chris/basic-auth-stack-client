@@ -1,11 +1,11 @@
 import MessageForm from "./MessageForm";
 import MessageFeed from "./MessageFeed";
 
-export default function LoggedInArea() {
+export default function LoggedInArea({ user }) {
   return (
     <>
       <MessageForm />
-      <MessageFeed />
+      <MessageFeed user={user} />
     </>
   );
 }
