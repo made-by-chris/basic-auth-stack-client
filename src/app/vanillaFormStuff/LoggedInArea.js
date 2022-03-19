@@ -1,19 +1,11 @@
-import { useEffect, useState } from "react";
+import MessageForm from "./MessageForm";
+import MessageFeed from "./MessageFeed";
 
-export default () => {
-  const [messages, setMessages] = useState([]);
-  useEffect(() => {
-    fetch("/api/messages")
-      .then((res) => res.json())
-      .then((messages) => setMessages(messages));
-  }, []);
+export default function LoggedInArea() {
   return (
-    <div>
-      {messages.map((message) => (
-        <div key={message.id}>
-          <p>{message.text}</p>
-        </div>
-      ))}
-    </div>
+    <>
+      <MessageForm />
+      <MessageFeed />
+    </>
   );
-};
+}

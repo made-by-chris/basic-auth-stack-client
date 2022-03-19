@@ -1,29 +1,40 @@
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Register() {
+export default function Register({ setUser }) {
+  let navigate = useNavigate();
+
   const passwordConfirmationRef = useRef();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
-
     const data = new FormData(form);
-    // for (var pair of data.entries()) {
-    //   console.log(pair[0] + ", " + pair[1]);
-    // }
+    var object = {};
+    data.forEach(function (value, key) {
+      object[key] = value;
+    });
+
     if (data.get("password") === passwordConfirmationRef.current.value) {
-      fetch("/api/register", {
+      fetch("http://localhost:8080/users", {
         method: "POST",
-        body: data,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(object),
       })
         .then((response) => response.json())
         .then((data) => {
           if (data.success) {
-            alert("Successfully registered!");
+            setUser(data.data);
+            localStorage.setItem("user-jwt", JSON.stringify(data.jwt));
+            navigate(`/my-feed`);
           } else {
             alert(data.message);
           }
         });
+    } else {
+      alert("Passwords do not match!");
     }
   };
   return (
