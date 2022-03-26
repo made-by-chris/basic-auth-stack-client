@@ -41,7 +41,8 @@ export default function MyFeed({ user }) {
       {messages.map((message) => (
         <div key={message.id}>
           <p>
-            {message.to} {message.message}
+            to: {message.to} <br />
+            message: {message.message}
           </p>
         </div>
       ))}

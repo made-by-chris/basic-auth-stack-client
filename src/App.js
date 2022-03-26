@@ -4,6 +4,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import LandingPage from "./app/vanillaFormStuff/LandingPage.js";
 import Register from "./app/vanillaFormStuff/Register.js";
+import Login from "./app/vanillaFormStuff/Login.js";
 import LoggedInArea from "./app/vanillaFormStuff/LoggedInArea.js";
 
 function App() {
@@ -29,6 +30,10 @@ function App() {
         });
     }
   }, []);
+  const handleLogout = () => {
+    localStorage.removeItem("user-jwt");
+    setUser(null);
+  };
   return (
     <div className="App">
       <header className="nav">
@@ -40,6 +45,12 @@ function App() {
           <Link to="/register">Register</Link>
         </span>
         <span>
+          <Link to="/login">Login</Link>
+        </span>
+        <span>
+          <button onClick={handleLogout}>Logout</button>
+        </span>
+        <span>
           <Link to="/my-feed">the feed</Link>
         </span>
       </header>
@@ -47,6 +58,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/register" element={<Register setUser={setUser} />} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/my-feed" element={<LoggedInArea user={user} />} />
       </Routes>
       {/* <hr /> */}
